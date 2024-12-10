@@ -17,7 +17,11 @@ public class GitHubApiClient : IGitHubApiClient
     {
         _client = new RestClient(ApiUrl);
         _client.AddDefaultHeader("User-Agent", "LetterStatisticsApp");
-        _client.AddDefaultHeader("Authorization", $"Bearer {configuration.GetValue<string>("AccessToken")}");
+
+        if (!string.IsNullOrEmpty(configuration.GetValue<string>("AccessToken")))
+        {
+            _client.AddDefaultHeader("Authorization", $"Bearer {configuration.GetValue<string>("AccessToken")}");
+        }
     }
 
     /// <summary>
